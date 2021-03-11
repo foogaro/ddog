@@ -1,0 +1,6 @@
+curl -vX POST "https://http-intake.logs.datadoghq.com/v1/input" \
+-H "Content-Type: application/json" \
+-H "DD-API-KEY: ${DD_API_KEY}" \
+-d @- << EOF
+{"message":"Ddog sending log","ddsource":"ddog","ddtags":"env:ddog,service:send-log,version:1.0.0","hostname":"ddog.local","service":"ddog.service"}
+EOF

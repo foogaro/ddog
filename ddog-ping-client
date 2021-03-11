@@ -1,0 +1,1 @@
+./ddog ping --mode=client --target-host=127.0.0.1 --target-port=4405 --message=ciao --verbose=true

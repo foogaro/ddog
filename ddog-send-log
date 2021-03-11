@@ -1,0 +1,1 @@
+./ddog send-log --apiKey=${DD_API_KEY} --size=10 --verbose=true

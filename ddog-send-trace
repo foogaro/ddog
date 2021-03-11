@@ -1,0 +1,1 @@
+./ddog send-trace --size=1 --hierarchical=true --verbose=true --service=foogaro --span=luigi

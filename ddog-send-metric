@@ -1,0 +1,1 @@
+./ddog send-metric --size=10000 --verbose=true --interval=10 --name=pippo
