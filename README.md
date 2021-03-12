@@ -3,10 +3,10 @@ DDog is yet another CLI tool written in Java to check connectivity towards the D
 
 ## Commands
 Those are the commands that can be used:
-* ping
-* send-metric
-* send-trace
-* send-log
+* [ping](#ping)
+* [send-metric](#send-metric)
+* [send-trace](#send-trace)
+* [send-log](#send-log)
 
 There is also a CLI help online:
 ```bash
@@ -414,8 +414,9 @@ And the log event can be seen after few seconds on Log page:
 Here it follows an example sending 10 log events.
 
 ```shell
+./ddog send-log --apiKey=${DD_API_KEY} --size=10 --verbose=true
 Parameters
-        apiKey: 329e0c344a47864d92ae0342f3797b3b
+        apiKey: <secret>
         content: Ddog sending log
         contentType: application/json
         url: https://http-intake.logs.datadoghq.com/v1/input
