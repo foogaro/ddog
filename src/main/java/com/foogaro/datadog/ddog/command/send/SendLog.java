@@ -21,26 +21,26 @@ public class SendLog implements Runnable {
     @CommandLine.Spec
     CommandLine.Model.CommandSpec spec;
 
-    @CommandLine.Option(names = {"--apiKey"}, description = "Datadog Agent host binding interface.", required = true)
+    @CommandLine.Option(names = {"--apiKey"}, description = "The Datadog API KEY used to consume the Datadog API to send the log to.", required = true)
     private String apiKey;
 
-    @CommandLine.Option(names = {"--content"}, description = "Content of the log event.", defaultValue = DEFAULT_LOG_CONTENT)
+    @CommandLine.Option(names = {"--content"}, description = "Content of the log event. Default is a text message: \"" + DEFAULT_LOG_CONTENT + "\".", defaultValue = DEFAULT_LOG_CONTENT)
     private String content;
 
-    @CommandLine.Option(names = {"--content-type"}, description = "Datadog Agent host listening port.", defaultValue = DEFAULT_LOG_CONTENT_TYPE)
+    @CommandLine.Option(names = {"--content-type"}, description = "Content type of the log. Default is \"" + DEFAULT_LOG_CONTENT_TYPE + "\".", defaultValue = DEFAULT_LOG_CONTENT_TYPE)
     private String contentType;
 
-    @CommandLine.Option(names = {"--url"}, description = "Datadog Agent host binding interface.", defaultValue = DEFAULT_LOG_URL)
+    @CommandLine.Option(names = {"--url"}, description = "The endpoint of the Datadog API to send the log to. Default is \"" + DEFAULT_LOG_URL + "\".", defaultValue = DEFAULT_LOG_URL)
     private String url;
 
-    @CommandLine.Option(names = {"--tags"}, description = "Tags use to group the metric. Defaults are: " + DEFAULT_METRIC_TAGS + ".", defaultValue = DEFAULT_METRIC_TAGS)
+    @CommandLine.Option(names = {"--tags"}, description = "Tags use to identify the log. Defaults are: " + DEFAULT_LOG_TAGS + ".", defaultValue = DEFAULT_LOG_TAGS)
     private String tags;
     private String[] tagz;
 
     @CommandLine.Option(names = {"--size"}, description = "Number of logs to send. Default is " + DEFAULT_LOG_SIZE + ".", defaultValue = DEFAULT_LOG_SIZE+"")
     private int size;
 
-    @CommandLine.Option(names = {"--interval"}, description = "Number of milliseconds to wait before sending the next log. Default is 0.." + DEFAULT_LOG_MAX_INTERVAL + ".", defaultValue = DEFAULT_LOG_MAX_INTERVAL+"")
+    @CommandLine.Option(names = {"--interval"}, description = "Number of milliseconds to wait before sending the next log event. Default is 0.." + DEFAULT_LOG_MAX_INTERVAL + ".", defaultValue = DEFAULT_LOG_MAX_INTERVAL+"")
     private int interval;
 
     @CommandLine.Option(names = "--verbose", description = "Verbose output of the command. Default is false.")

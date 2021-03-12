@@ -1,1 +1,1 @@
-./ddog send-log --apiKey=${DD_API_KEY} --size=10 --verbose=true
+./ddog send-log --apiKey=${DD_API_KEY} --size=1 --verbose=true

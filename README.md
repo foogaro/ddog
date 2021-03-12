@@ -109,16 +109,13 @@ Usage: ddog send-metric [-hV] [--verbose] [--host=<host>]
                         [--size=<size>] [--tags=<tags>] [--value=<value>]
 Send a metric.
   -h, --help            Show this help message and exit.
-      --host=<host>     Datadog Agent host binding interface. Default is
-                          localhost.
+      --host=<host>     Datadog Agent host binding interface. Default is localhost.
       --interval=<interval>
-                        Number of milliseconds to wait before sending the next
-                          metric. Default is 0..2000.
+                        Number of milliseconds to wait before sending the next metric. Default is 0..2000.
       --name=<name>     Name of the metric. Default is puppy. Prefixed by ddog.
       --port=<port>     Datadog Agent host listening port. Default is 8125.
       --size=<size>     Number of metric to send. Default is 1.
-      --tags=<tags>     Tags use to group the metric. Defaults are: env:ddog,
-                          service:send-metric,version:1.0.0.
+      --tags=<tags>     Tags use to group the metric. Defaults are: env:ddog,service:send-metric,version:1.0.0.
   -V, --version         Print version information and exit.
       --value=<value>   Value of the metric. Default is random 0..1000.
       --verbose         Verbose output of the command. Default is false.
@@ -222,22 +219,18 @@ Usage: ddog send-trace [-hV] [--hierarchical] [--verbose]
                        [--size=<size>] [--span=<span>] [--span-id=<spanId>]
                        [--start=<start>] [--trace-id=<traceId>]
 Send a trace.
-      --duration=<duration>  Duration of the trace in nanoseconds (ns)
-                               (1s=1000ms=1000000μs=1000000000ns).
+      --duration=<duration>  Duration of the trace in nanoseconds (ns) (1s=1000ms=1000000μs=1000000000ns).
   -h, --help                 Show this help message and exit.
-      --hierarchical         Datadog Agent host listening port. Default is
-                               false.
+      --hierarchical         Datadog Agent host listening port. Default is false.
       --host=<host>          Datadog Agent host binding interface.
-      --interval=<interval>  Number of milliseconds to wait before sending the
-                               next trace. Default is 0..2000 (two thousands).
+      --interval=<interval>  Number of milliseconds to wait before sending the next trace. Default is 0..2000 (two thousands).
       --port=<port>          Datadog Agent host listening port.
       --resource=<resource>  Name of the resource requested.
       --service=<service>    Name of the service/app.
       --size=<size>          Number of traces to send. Default is 1 (one)
       --span=<span>          Name of the trace
       --span-id=<spanId>     SpanID identifying the span.
-      --start=<start>        Timestamp of the start of the trace in
-                               milliseconds since epoch.
+      --start=<start>        Timestamp of the start of the trace in milliseconds since epoch.
       --trace-id=<traceId>   TraceID identifying the trace.
   -V, --version              Print version information and exit.
       --verbose              Verbose output of the command. Default is false.
@@ -369,4 +362,79 @@ And the traces and the spans can be seen after few seconds on APM Traces page:
 
 
 ## SendLog
+This command should be used to check the connectivity between a server sending metrics to a remote server hosting the Datadog agent listening for metrics (port 8125), and the Datadog SaaS.
+
+### Hep online
+```bash
+./ddog send-log -h
+Usage: ddog send-log [-hV] [--verbose] --apiKey=<apiKey> [--content=<content>]
+                     [--content-type=<contentType>] [--interval=<interval>]
+                     [--size=<size>] [--tags=<tags>] [--url=<url>]
+Send a log event.
+      --apiKey=<apiKey>     The Datadog API KEY used to consume the Datadog API to send the log to.
+      --content=<content>   Content of the log event. Default is a text message: "Ddog sending log".
+      --content-type=<contentType>
+                            Content type of the log. Default is "application/json".
+  -h, --help                Show this help message and exit.
+      --interval=<interval> Number of milliseconds to wait before sending the next log event. Default is 0..600.
+      --size=<size>         Number of logs to send. Default is 1.
+      --tags=<tags>         Tags use to identify the log. Defaults are: env:ddog,service:send-log,version:1.0.0.
+      --url=<url>           The endpoint of the Datadog API to send the log to. Default is "https://http-intake.logs.datadoghq.com/v1/input".
+  -V, --version             Print version information and exit.
+      --verbose             Verbose output of the command. Default is false.
+```
+
+### Example
+Here it follows an example sending one log event named.
+
+```shell
+./ddog send-log --apiKey=${DD_API_KEY} --size=1 --verbose=true
+Parameters
+        apiKey: <secret>
+        content: Ddog sending log
+        contentType: application/json
+        url: https://http-intake.logs.datadoghq.com/v1/input
+        tags: env:ddog,service:send-log,version:1.0.0
+        size: 1
+        interval: 600
+        verbose: true
+Sending log
+        url: https://http-intake.logs.datadoghq.com/v1/input
+        contentType: application/json
+        log: {"message":"Ddog sending log","ddsource":"ddog","ddtags":"env:ddog,service:send-log,version:1.0.0","hostname":"ddog.local","service":"ddog.service","timestamp":"1615546208160"}
+        response:
+        HttpResponseProxy{HTTP/1.1 200 OK [Date: Fri, 12 Mar 2021 10:50:08 GMT, Content-Type: application/json, Content-Length: 2, Connection: keep-alive] ResponseEntityProxy{[Content-Type: application/json,Content-Length: 2,Chunked: false]}}
+        http[200]
+```
+
+And the log event can be seen after few seconds on Log page:
+
+![Datadog trace](images/ddog-log.jpg)
+
+Here it follows an example sending 10 log events.
+
+```shell
+Parameters
+        apiKey: 329e0c344a47864d92ae0342f3797b3b
+        content: Ddog sending log
+        contentType: application/json
+        url: https://http-intake.logs.datadoghq.com/v1/input
+        tags: env:ddog,service:send-log,version:1.0.0
+        size: 10
+        interval: 600
+        verbose: true
+Sending log
+        url: https://http-intake.logs.datadoghq.com/v1/input
+        contentType: application/json
+        log: {"message":"Ddog sending log","ddsource":"ddog","ddtags":"env:ddog,service:send-log,version:1.0.0","hostname":"ddog.local","service":"ddog.service","timestamp":"1615546359442"}
+        response:
+        HttpResponseProxy{HTTP/1.1 200 OK [Date: Fri, 12 Mar 2021 10:52:40 GMT, Content-Type: application/json, Content-Length: 2, Connection: keep-alive] ResponseEntityProxy{[Content-Type: application/json,Content-Length: 2,Chunked: false]}}
+        http[200]
+(more)
+```
+
+And the log events can be seen after few seconds on Log page:
+
+![Datadog trace](images/ddog-logs.jpg)
+
 
